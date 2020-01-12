@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pokemon-card/pokemon-card.module').then(mod => mod.PokemonCardModule)
+    loadChildren: './pokemon-card/pokemon-card.module#PokemonCardModule'
   }
 ];
 
