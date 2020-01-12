@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-4" *ngFor="let pokemonCard of pokemonCards; let index = index">
+    <div class="card shadow p-3 mb-5 bg-white rounded ml-2">
+      <h4 class="card-title">{{'pokemon -' + (index + 1)}}</h4>
+      <img class="card-img-top" src="../../../assets/images/{{pokemonCard?.photo + '.png'}}" alt="Card image"
+        style="width:100%">
+      <div class="card-body">
+        <ul>
+          <li>Name : {{pokemonCard?.name}}</li>
+          <li>Weight : {{pokemonCard?.weight}} Kg</li>
+          <li>Height : {{pokemonCard?.height}} ft</li>
+          <li>Description : {{pokemonCard?.description}}</li>
+        </ul>
+        <a class="btn btn-danger" (click)="deleteCard(pokemonCard)">Delete</a>
+
+        <a type="button" class="btn btn-primary ml-2" (click)="openModal(template,pokemonCard)">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit {{selectedCard?.name}} Card</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="PokemonForm" (ngSubmit)="updateCard()">
+      <div class="row">
+
+        <div class="form-group">
+          <label>Name <sup>*</sup></label>
+          <input formControlName="name" class="form-control" type="text" placeholder="Name" />
+          <span *ngIf="PokemonForm?.controls?.name?.invalid && isSubmit">Name is Required</span>
+
+        </div>
+        <div class="form-group">
+          <label>Height <sup>*</sup></label>
+          <input formControlName="height" class="form-control" type="number" placeholder="Height" />
+          <span *ngIf="!PokemonForm?.controls?.height?.valid && isSubmit">Height is Required</span>
+
+        </div>
+        <div class="form-group">
+          <label>Weight <sup>*</sup></label>
+          <input formControlName="weight" class="form-control" type="number" placeholder="Weight" />
+          <span *ngIf="!PokemonForm?.controls?.weight?.valid && isSubmit">Weight is Required</span>
+
+        </div>
+        <div class="form-group">
+          <label>Description <sup>*</sup></label>
+          <input formControlName="description" class="form-control" type="text" placeholder="Description" />
+          <span *ngIf="PokemonForm?.controls?.description?.invalid && isSubmit">Description is Required</span>
+
+        </div>
+        <div class="form-group">
+          <label>Photos <sup>*</sup></label>
+          <select formControlName="photo" class="form-control">
+            <option [ngValue]="''">Select Avatar</option>
+            <option *ngFor="let photo of pokemonPhotos" [ngValue]="photo">{{photo}}</option>
+          </select>
+          <span *ngIf="PokemonForm?.controls?.photo?.invalid && isSubmit">Photo is Required</span>
+
+        </div>
+        <button (click)="modalRef.hide()" class="btn btn-primary ml-3" type="button">Cancel</button>
+        <button class="btn btn-danger ml-2" type="submit">update</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
