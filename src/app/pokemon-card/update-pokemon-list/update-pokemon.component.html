@@ -1,3 +1,8 @@
+<div class="overlay" *ngIf="showSpinner">
+    <div class="spinner-border" style="width: 6rem; height: 6rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
 <div class="container">
     <form [formGroup]="PokemonForm">
         <div class="row">

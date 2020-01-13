@@ -15,6 +15,7 @@ export class UpdatePokemonComponent implements OnInit {
   PokemonForm: FormGroup
   pokemonPhotos: string[] = pokemonPhotos;
   isSubmit: boolean
+  showSpinner: boolean;
 
   constructor(public pokemonCardService: PokemonCardService, private fb: FormBuilder,
   ) {
@@ -35,6 +36,7 @@ export class UpdatePokemonComponent implements OnInit {
     })
   }
   getPokemons() {
+    this.showSpinner = true
     this.pokemonCardService.getCards().pipe(
       map(docArray => {
         return docArray.map(doc => {
@@ -45,16 +47,27 @@ export class UpdatePokemonComponent implements OnInit {
         })
       }))
       .subscribe(result => {
+        this.showSpinner = false
         this.pokemonCards = [...result]
+      }, err => {
+        this.showSpinner = false
+
       })
   }
   addCard() {
     this.isSubmit = true
+    this.showSpinner = true
+
     if (this.PokemonForm.valid) {
       this.pokemonCardService.addCard(this.PokemonForm.value).then(res => {
+        this.showSpinner = false
+
         this.createForm()
         this.isSubmit = false
         this.getPokemons();
+      }, err => {
+        this.showSpinner = false
+
       })
     }
   }

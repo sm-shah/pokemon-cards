@@ -1,3 +1,8 @@
+<div class="overlay" *ngIf="showSpinner">
+  <div class="spinner-border" style="width: 6rem; height: 6rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
 <div class="row">
   <div class="col-4" *ngFor="let pokemonCard of pokemonCards; let index = index">
     <div class="card shadow p-3 mb-5 bg-white rounded ml-2">

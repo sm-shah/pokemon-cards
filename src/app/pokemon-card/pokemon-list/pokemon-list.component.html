@@ -1,3 +1,9 @@
+<div class="overlay" *ngIf="showSpinner">
+  <div class="spinner-border" style="width: 6rem; height: 6rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
 <div class="row">
   <div class="main col-10">
     <div class="form-group has-search">
@@ -11,7 +17,7 @@
   </div>
 </div>
 
-<div class="card-deck d-flex justify-content-center">
+<div class="card-deck d-flex justify-content-center" [hidden]="pokemonCards?.length === 0">
   <div class="row">
     <div class="col-sm-2" *ngFor="let pokemonCard of pokemonCards | searchPokemon:searchQuery ;let index = index">
       <div class="ml-2">

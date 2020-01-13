@@ -18,6 +18,7 @@ export class PokemonCardComponent implements OnInit {
   PokemonForm: FormGroup
   pokemonPhotos: string[] = pokemonPhotos;
   isSubmit: any;
+  showSpinner: boolean;
 
   constructor(public pokemonCardService: PokemonCardService,
     private modalService: BsModalService, private fb: FormBuilder) { }
@@ -50,6 +51,7 @@ export class PokemonCardComponent implements OnInit {
     this.selectedCard.photo = this.PokemonForm.value.photo;
   }
   updateCard() {
+    this.showSpinner = true
     this.isSubmit = true;
     if (this.PokemonForm.valid) {
       this.isSubmit = false;
@@ -57,21 +59,25 @@ export class PokemonCardComponent implements OnInit {
       this.updateLocalCard();
       this.pokemonCardService.updateCard(this.selectedCard).then(res => {
         this.modalRef.hide()
+        this.showSpinner = false;
 
       }, err => {
         this.modalRef.hide()
-
+        this.showSpinner = false;
       })
     }
   }
   deleteCard(cardTD) {
+    this.showSpinner = true
     this.pokemonCardService.deleteCard(cardTD).then(res => {
+      this.showSpinner = false
       this.pokemonCards.forEach((card, index) => {
         if (card.id === cardTD.id) {
           this.pokemonCards.splice(index, 1)
         }
       })
     }, err => {
+      this.showSpinner = false
 
     })
   }
