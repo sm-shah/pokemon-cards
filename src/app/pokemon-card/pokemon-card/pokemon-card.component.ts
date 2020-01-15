@@ -51,9 +51,9 @@ export class PokemonCardComponent implements OnInit {
     this.selectedCard.photo = this.PokemonForm.value.photo;
   }
   updateCard() {
-    this.showSpinner = true
     this.isSubmit = true;
     if (this.PokemonForm.valid) {
+      this.showSpinner = true
       this.isSubmit = false;
 
       this.updateLocalCard();

@@ -56,9 +56,8 @@ export class UpdatePokemonComponent implements OnInit {
   }
   addCard() {
     this.isSubmit = true
-    this.showSpinner = true
-
     if (this.PokemonForm.valid) {
+    this.showSpinner = true
       this.pokemonCardService.addCard(this.PokemonForm.value).then(res => {
         this.showSpinner = false
 
